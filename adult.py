@@ -2,7 +2,6 @@
 Title: Adult.py
 Author: Noah Fry
 """
-print("")
 
 class Adult():
     def __init__(self, age, disability, childsup, income, applicant=False, industry=None, job=None, school=None):
