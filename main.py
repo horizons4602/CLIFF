@@ -21,11 +21,38 @@ def main():
     #Here we will take in the user's username and password. Based on their username, we will check for preloaded csv file.
     uID = str(input("Please enter your username: "))
     csv_filename = f"result/pre_load{uID}.csv"
-
+    expFood, expSchoolMeal, expYearRent, yearList, childList, expTrans, expTech, expWic, tanf, expHealthALICE, expslcs = [], [], [], [], [], [], [], [], [], [], []
+    #This is for all childcare expenses and benefits calculations. 
+    valCCDFCopay, netExpChildCare = [], []
+    prek, headstart, earlyheadstart, fates = False, False, False, False
+    ccdfRemain = []
     if os.path.exists(csv_filename):
         pre = str(input("Would you like to use your preloaded data? (Y/N) - "))
-        if pre == "y":
-            userDF = pd.read_csv(csv_filename, index = False)
+        if pre == "y" or pre == "Y":
+            userDF = pd.read_csv(csv_filename)
+            state = userDF['state'][0]
+            county = userDF['county'][0]
+            #family = Family(curr_year=curr_year, state=None, county=None, houseStatus=None, file_status=None, ccdfEligible = True)
+            #family.headStart = False
+            #assign the family functions.
+            for index, row in userDF.iterrows():
+                
+                expFood.append(row['expFood'])
+                expSchoolMeal.append(row['expSchoolMeal'])
+                expYearRent.append(row['expYearRent'])
+                #family.utilities.append(row['utilities'])
+                expTrans.append(row['expTrans'])
+                expTech.append(row['expTech'])
+                expWic.append(row['expWic'])
+                tanf.append(row['tanf'])
+                childList.append(row['childList'])
+                ccdfRemain.append(row['ccdfRemain'])
+                netExpChildCare.append(row['netExpChildCare'])
+            print(expFood)
+            print(expSchoolMeal)
+            print(expYearRent)
+            #print(family.utilities)
+            print(expTrans)            
             
             
     #Here I want to include a user terminal to either: "run the calculator again",
@@ -66,12 +93,9 @@ def main():
             publicTrans = 0#int(input("Do you use public transportation (1 - yes, 0 - no)?\n>>> "))
             
             family.taxRate()
-            ccdfRemain = []
-            #This is for all childcare expenses and benefits calculations. 
-            valCCDFCopay, netExpChildCare = [], []
-            prek, headstart, earlyheadstart, fates = False, False, False, False
             
-            expFood, expSchoolMeal, expYearRent, yearList, childList, expTrans, expTech, expWic, tanf, expHealthALICE, expslcs = [], [], [], [], [], [], [], [], [], [], []
+            
+            
             for i in range(18):
                 yearList.append(year)
                 expFood.append(family.food_cost(year))
