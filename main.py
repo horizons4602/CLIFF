@@ -32,15 +32,14 @@ def main():
             userDF = pd.read_csv(csv_filename)
             state = userDF['state'][0]
             county = userDF['county'][0]
-            #family = Family(curr_year=curr_year, state=None, county=None, houseStatus=None, file_status=None, ccdfEligible = True)
-            #family.headStart = False
+            family = Family(curr_year=curr_year, state=str(state), county=str(county), houseStatus=None, file_status=None, ccdfEligible = True)
+            family.headStart = False
             #assign the family functions.
             for index, row in userDF.iterrows():
-                
                 expFood.append(row['expFood'])
                 expSchoolMeal.append(row['expSchoolMeal'])
                 expYearRent.append(row['expYearRent'])
-                #family.utilities.append(row['utilities'])
+                family.utilities.append(row['utilities'])
                 expTrans.append(row['expTrans'])
                 expTech.append(row['expTech'])
                 expWic.append(row['expWic'])
@@ -48,15 +47,9 @@ def main():
                 childList.append(row['childList'])
                 ccdfRemain.append(row['ccdfRemain'])
                 netExpChildCare.append(row['netExpChildCare'])
-            print(expFood)
-            print(expSchoolMeal)
-            print(expYearRent)
-            #print(family.utilities)
-            print(expTrans)            
             
-            
-    #Here I want to include a user terminal to either: "run the calculator again",
-       #"display previous results", "delete information", etc for the user
+        #Here I want to include a user terminal to either: "run the calculator again",
+        #"display previous results", "delete information", etc for the user
     
         if pre == "n":
             os.remove(csv_filename)
